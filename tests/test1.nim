@@ -25,6 +25,7 @@ test "sequence conversion":
 
 test "convert to itself":
   check (1, 2, 3).to((int, int, int)) == (1, 2, 3)
+  check 1'f32.to(float32) == 1'f32
 
 # test "into":
 #   let y: int64 = 1

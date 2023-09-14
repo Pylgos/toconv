@@ -1,7 +1,9 @@
+{.push inline.}
+
 proc to*[T](value: T, _: typedesc[T]): T =
   value
 
-proc to*[T, U: SomeNumber](value: T, _: typedesc[U]): U =
+proc to*[T: SomeNumber, U: SomeNumber](value: T, _: typedesc[U and not T]): U =
   U(value)
 
 proc to*[T: enum, U: SomeInteger](value: T, _: typedesc[U]): U =
@@ -37,3 +39,5 @@ proc to*(value: openArray[byte], _: string): string =
   result = newStringUninit(value.len)
   for i in 0..<value.len:
     result[i] = char value[i]
+
+{.pop.}
