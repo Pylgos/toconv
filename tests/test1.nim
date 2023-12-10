@@ -5,12 +5,10 @@
 #
 # To run these tests, simply execute `nimble test`.
 
-import unittest
-
+import std/unittest
 import toconv
-import toconv/intoprocs
-{.experimental: "inferGenericTypes".}
 
+{.experimental: "inferGenericTypes".}
 
 test "number conversion":
   check 1'f32.to(float64) == 1'f64
@@ -23,10 +21,18 @@ test "sequence conversion":
   let floatSeq = @[1'f64, 2, 3, 4, 5]
   check intSeq.to(seq[float64]) == floatSeq
 
+test "array conversion":
+  let intArr = [1, 2, 3, 4, 5]
+  let floatArr = [1'f64, 2, 3, 4, 5]
+  check intArr.to(array[5, float64]) == floatArr
+
 test "convert to itself":
   check (1, 2, 3).to((int, int, int)) == (1, 2, 3)
   check 1'f32.to(float32) == 1'f32
 
-# test "into":
-#   let y: int64 = 1
-#   let x: float64 = y.into()
+import fixtures/m1
+
+test "conv":
+  let x: int64 = 1
+  let y: float64 = conv x
+  gnrc(string)
